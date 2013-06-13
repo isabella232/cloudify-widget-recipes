@@ -66,6 +66,21 @@ service {
 			println "mysql-service.groovy: current PIDs: ${merge}"
 			return merge  */
         }	
+		
+		details {
+			def currPublicIP
+			
+			if ( context.isLocalCloud() ) {
+				currPublicIP = InetAddress.localHost.hostAddress	
+			}
+			else {
+				currPublicIP =context.getPublicAddress()	
+			}
+			return [	
+				"MySQL IP":currPublicIP,
+				"MySQL Port":jdbcPort
+			]
+		}	
 	}
 	
 	customCommands ([

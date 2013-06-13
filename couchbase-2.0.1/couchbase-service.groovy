@@ -36,7 +36,15 @@ service {
 	
 	
 		details {
-			def currPublicIP =InetAddress.localHost.hostAddress
+		
+			def currPublicIP
+
+			if ( context.isLocalCloud() ) {
+				currPublicIP = InetAddress.localHost.hostAddress	
+			}
+			else {
+				currPublicIP = context.getPublicAddress()	
+			}			
 				
 			def hostAndPort="http://${currPublicIP}:${currentPort}"
 			def applicationURL = "${hostAndPort}"
