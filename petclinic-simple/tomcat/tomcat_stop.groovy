@@ -1,4 +1,4 @@
-import org.cloudifysource.dsl.context.ServiceContextFactory
+import org.cloudifysource.utilitydomain.context.ServiceContextFactory
 println "tomcat_stop.groovy: About to stop tomcat..."
 
 def serviceContext = ServiceContextFactory.getServiceContext()

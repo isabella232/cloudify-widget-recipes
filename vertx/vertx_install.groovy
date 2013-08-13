@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 *******************************************************************************/
-import org.cloudifysource.dsl.context.ServiceContextFactory
+import org.cloudifysource.utilitydomain.context.ServiceContextFactory
 import static TemplateGenerator.*
 import java.util.concurrent.TimeUnit
 
@@ -38,15 +38,11 @@ context.attributes.thisInstance["javaHome"] = javaHome as String
 def builder = new AntBuilder()
 builder.sequential {
 	mkdir(dir:"${installDir}")
-	echo(message: "Getting ${config.downloadPath} to ${installDir}/${config.zipName} ...")
 	get(src:"${config.downloadPath}", dest:"${installDir}/${config.zipName}", skipexisting:true)
     //todo - windows support
-	echo(message: "Getting ${config.javaUrl} to ${installDir}/java7.tar.gz ...")
 	get(src:"${config.javaUrl}", dest:"${installDir}/java7.tar.gz", skipexisting:true)
-	echo(message: "untarring ${installDir}/${config.zipName} to ${installDir} ...")
     untar(src:"${installDir}/${config.zipName}", dest:"${installDir}", compression:"gzip", overwrite:true)
     move(file:"${installDir}/${config.name}", tofile:"${home}")
-	echo(message: "untarring ${installDir}/java7.tar.gz to ${context.serviceDirectory} ...")
     untar(src:"${installDir}/java7.tar.gz", dest:"${context.serviceDirectory}", compression:"gzip", overwrite:true)
     chmod(dir:"${home}/bin", perm:'+x', includes:"**/*")
 	chmod(dir:"${javaHome}/bin", perm:'+x', includes:"**/*")

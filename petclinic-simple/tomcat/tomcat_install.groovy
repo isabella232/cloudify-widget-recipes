@@ -1,4 +1,4 @@
-import org.cloudifysource.dsl.context.ServiceContextFactory
+import org.cloudifysource.utilitydomain.context.ServiceContextFactory
 
 def config = new ConfigSlurper().parse(new File("tomcat-service.properties").toURL())
 def context = ServiceContextFactory.getServiceContext()
